@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/custom/findcustomfields</path>
+    <page_callback>CRM_findcustomfields_Form_Search</page_callback>
+    <title>Search Custom Fields Set</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>

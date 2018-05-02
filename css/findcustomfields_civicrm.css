@@ -1,0 +1,18 @@
+/* Disable the display of the direct debit fields that are injected by Core templates/CRM/Core/BillingBlock */
+
+.crm-container .Fields-icon {
+    background-position: -16px -32px;
+    height: 16px;
+    margin: 2px 4px 0 0;
+    width: 16px;
+    float: right;
+}
+.crm-fields-link .crm-tooltip-wrapper{left:0;}
+.crm-fields-link .crm-tooltip {
+    background-color: #2f2f2e;
+    color: #ffffff;
+    margin-left: 11px;
+    min-height: 20px;
+    width: 300px;
+    padding: 4px;
+}
