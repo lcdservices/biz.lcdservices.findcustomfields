@@ -81,25 +81,17 @@ function findcustomfields_civicrm_managed(&$entities) {
  * Implementation of hook_civicrm_navigationMenu
  */
 function findcustomfields_civicrm_navigationMenu(&$navMenu) {
-  $pages = array(
-    'admin_page' => array(
-      'label'      => 'Custom Data',
-      'name'       => 'Custom Data',
-      'url'        => 'civicrm/admin/custom/group',
-      'parent' => array('Administer'),
-      'permission' => 'access CiviContribute,administer CiviCRM',
-      'operator'   => 'AND',
-      'separator'  => NULL,
-      'active'     => 1,
-    ),
-  );
-  foreach ($pages as $item) {
-    // Check that our item doesn't already exist.
-    $menu_item_search = array('url' => $item['url']);
-    $menu_items = array();
-    CRM_Core_BAO_Navigation::retrieve($menu_item_search, $menu_items);
-    if (!empty($menu_items)) {
-      $item['url'] = 'civicrm/custom/findcustomfields';
+  //Civi::log()->debug('findcustomfields_civicrm_navigationMenu', array('navMenu' => $navMenu));
+
+  foreach ($navMenu as &$menu) {
+    if (CRM_Utils_Array::value('attributes', $menu) &&
+      CRM_Utils_Array::value('name', $menu['attributes']) == 'Custom Fields'
+    ) {
+      $menu['attributes']['url'] = 'civicrm/custom/findcustomfields?reset=1';
+    }
+
+    if (CRM_Utils_Array::value('child', $menu)) {
+      findcustomfields_civicrm_navigationMenu($menu['child']);
     }
   }
 }
