@@ -26,20 +26,20 @@
 {crmStyle ext=biz.lcdservices.findcustomfields file=css/findcustomfields_civicrm.css}
 {* Search form and results for Fields *}
 {if $action eq 1 or $action eq 2 or $action eq 4}
-    {include file="CRM/Custom/Form/Group.tpl"}
+  {include file="CRM/Custom/Form/Group.tpl"}
 {elseif $action eq 1024}
-    {include file="CRM/Custom/Form/Preview.tpl"}
+  {include file="CRM/Custom/Form/Preview.tpl"}
 {elseif $action eq 8}
-    {include file="CRM/Custom/Form/DeleteGroup.tpl"}
+  {include file="CRM/Custom/Form/DeleteGroup.tpl"}
 {else}
 
-{assign var="showBlock" value="'searchForm'"}
-{assign var="hideBlock" value="'searchForm_show'"}
-<div class="crm-block crm-form-block crm-custom-search-form-block">
-  <div class="crm-accordion-wrapper crm-custom_search_form-accordion">
+  {assign var="showBlock" value="'searchForm'"}
+  {assign var="hideBlock" value="'searchForm_show'"}
+  <div class="crm-block crm-form-block crm-custom-search-form-block">
+    <div class="crm-accordion-wrapper crm-custom_search_form-accordion">
       <div class="crm-accordion-header crm-master-accordion-header">
-          {ts}Search Custom Field Names{/ts}
-       </div><!-- /.crm-accordion-header -->
+        {ts}Custom Data{/ts}
+      </div><!-- /.crm-accordion-header -->
       <div class="crm-accordion-body">
         {strip}
           <table class="form-layout">
@@ -72,30 +72,29 @@
         {/strip}
       </div><!-- /.crm-accordion-body -->
     </div><!-- /.crm-accordion-wrapper -->
-</div><!-- /.crm-form-block -->
+  </div><!-- /.crm-form-block -->
+
   {if $rowsEmpty || $rows}
     <div class="crm-content-block">
     {if $rowsEmpty}
     <div class="crm-results-block crm-results-block-empty">
-        There are no custom groups matching your search criteria.
+      There are no custom groups matching your search criteria.
     </div>
     {/if}
 
     {if $rows}
-        <div class="crm-results-block">
+      <div class="crm-results-block">
         {* Search request has returned 1 or more matching rows. *}
-            {* This section handles form elements for action task select and submit *}
-            {* This section displays the rows along and includes the paging controls *}
-           <div class="help">
+        {* This section handles form elements for action task select and submit *}
+        {* This section displays the rows along and includes the paging controls *}
+        <div class="help">
           {ts}Custom data is stored in custom fields. Custom fields are organized into logically related custom data sets (e.g. Volunteer Info). Use custom fields to collect and store custom data which are not included in the standard CiviCRM forms. You can create one or many sets of custom fields.{/ts} {docURL page="user/organising-your-data/custom-fields"}
-          <p>
-          You are using the Find Custom Fields extension, which is a drop-in replacement for the standard custom data management tool. If you would like to access the standard form, <a href="/civicrm/admin/custom/group">click here.</a>
-          </p>
-          </div>
-
-          {include file="CRM/findcustomfields/Form/Selector.tpl" context="Search"}
-        {* END Actions/Results section *}
+          <p>{ts 1=$coreCustomFieldsUrl}You are using the Find Custom Fields extension, which is a drop-in replacement for the standard custom data management tool. If you would like to access the standard form, <a href='%1'>click here.</a>{/ts}</p>
         </div>
+
+        {include file="CRM/findcustomfields/Form/Selector.tpl" context="Search"}
+        {* END Actions/Results section *}
+      </div>
     {/if}
 
     </div>

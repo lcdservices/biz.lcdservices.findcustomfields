@@ -101,7 +101,7 @@ class CRM_findcustomfields_Form_Search extends CRM_Core_Form_Search {
     
     $this->assign("{$prefix}limit", $this->_limit);
     
-   $controller = new CRM_Core_Selector_Controller($selector,
+    $controller = new CRM_Core_Selector_Controller($selector,
       $this->get(CRM_Utils_Pager::PAGE_ID),
       $sortID,
       CRM_Core_Action::VIEW,
@@ -128,7 +128,8 @@ class CRM_findcustomfields_Form_Search extends CRM_Core_Form_Search {
    * Build the form object.
    */
   public function buildQuickForm() {
-   parent::buildQuickForm();
+    parent::buildQuickForm();
+
     $this->add('text', 'title', ts('Set Name'));
     
     $status = array('any' => ts("- any -"), 'enabled' => 'Enabled', 'disabled' => 'Disabled');
@@ -143,10 +144,9 @@ class CRM_findcustomfields_Form_Search extends CRM_Core_Form_Search {
     $rows = $this->get('rows');
     if (is_array($rows)) {
       $this->addRowSelectors($rows);
-      $permission = CRM_Core_Permission::getPermission();
-      $queryParams = $this->get('queryParams');
     }
 
+    $this->assign('coreCustomFieldsUrl', CRM_Utils_System::url('civicrm/admin/custom/group', 'reset=1'));
   }
  
   /**
