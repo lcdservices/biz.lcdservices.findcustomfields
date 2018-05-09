@@ -207,12 +207,8 @@ class CRM_findcustomfields_Selector_Search extends CRM_Core_Selector_Base implem
    *   Total number of rows
    */
   public function getTotalCount($action) {
-    return $this->_query->searchQuery(0, 0, NULL,
-      TRUE, FALSE,
-      FALSE, FALSE,
-      FALSE,
-      ''
-    );
+    $dao = CRM_Core_DAO::executeQuery($this->_query, $this->_params);
+    return $dao->N;
   }
 
   /**
@@ -234,7 +230,7 @@ class CRM_findcustomfields_Selector_Search extends CRM_Core_Selector_Base implem
    */
   public function &getRows($action, $offset, $rowCount, $sort, $output = NULL) {
     // process the result of the query
-     if (!empty($sort)) {
+    if (!empty($sort)) {
       $sort = $sort->orderBy();
       $this->_query .= " ORDER BY $sort ";
     }
