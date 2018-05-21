@@ -151,7 +151,7 @@ function _findcustomfields_civix_civicrm_managed(&$entities) {
     $es = include $file;
     foreach ($es as $e) {
       if (empty($e['module'])) {
-        $e['module'] = 'com.aghstrategies.findcustomfields';
+        $e['module'] = 'biz.lcdservices.findcustomfields';
       }
       $entities[] = $e;
     }
