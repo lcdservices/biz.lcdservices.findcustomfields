@@ -66,7 +66,7 @@ class CRM_findcustomfields_Form_Search extends CRM_Core_Form_Search {
 
     $this->_done = FALSE;
     // @todo - is this an error - $this->_defaults is used.
-    $this->defaults = array();
+    $this->defaults = [];
 
     /*
      * we allow the controller to set force/reset externally, useful when we are being

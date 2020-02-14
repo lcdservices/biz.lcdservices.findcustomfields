@@ -33,7 +33,9 @@
 /**
  * Class to render contribution search results.
  */
-class CRM_findcustomfields_Selector_Search extends CRM_Core_Selector_Base implements CRM_Core_Selector_API {
+class CRM_findcustomfields_Selector_Search
+  extends CRM_Core_Selector_Base
+  implements CRM_Core_Selector_API {
 
   /**
    * Array of action links.
@@ -117,7 +119,15 @@ class CRM_findcustomfields_Selector_Search extends CRM_Core_Selector_Base implem
     $params = array();
     $whereClause = $this->whereClause($params);
     $this->_params = $params;
-    $sql = "SELECT g.*, GROUP_CONCAT(f.label separator ', ') as label, GROUP_CONCAT(f.id separator ', ') as fid FROM civicrm_custom_group g LEFT JOIN civicrm_custom_field f ON g.id = f.custom_group_id WHERE $whereClause GROUP BY g.id";
+
+    $sql = "
+      SELECT g.*, GROUP_CONCAT(f.label separator ', ') as label, GROUP_CONCAT(f.id separator ', ') as fid
+      FROM civicrm_custom_group g
+      LEFT JOIN civicrm_custom_field f
+        ON g.id = f.custom_group_id
+      WHERE $whereClause
+      GROUP BY g.id
+    ";
     $this->_query = $sql;
   }
 
@@ -395,46 +405,46 @@ class CRM_findcustomfields_Selector_Search extends CRM_Core_Selector_Base implem
    *   the column headers that need to be displayed
    */
   public function &getColumnHeaders($action = NULL, $output = NULL) {
-    $pre = array();
-    self::$_columnHeaders = array(
-      array(
-            'name' => ts('Set'),
-            'sort' => 'title',
-            'field_name' => 'title',
-            'direction' => CRM_Utils_Sort::DONTCARE,
-          ),
-           array(
-            'name' => ts(''),
-            'field_name' => 'fields',
-          ),
-          array(
-            'name' => ts('Enabled'),
-            'field_name' => 'is_active',
-          ),
-          array(
-            'name' => ts('Used For'),
-            'sort' => 'extends',
-            'field_name' => 'extends',
-            'direction' => CRM_Utils_Sort::DESCENDING,
-          ),
-          array(
-            'name' => ts('Type'),
-            'field_name' => 'extends_entity_column_id',
-          ),
-          array(
-            'name' => ts('Order'),
-            'field_name' => 'weight',
-          ),
-          array(
-            'name' => ts('Style'),
-            'field_name' => 'style',
-          ),
-    );
+    $pre = [];
+    self::$_columnHeaders = [
+      [
+        'name' => ts('Set'),
+        'sort' => 'title',
+        'field_name' => 'title',
+        'direction' => CRM_Utils_Sort::DONTCARE,
+      ],
+      [
+        'name' => ts(''),
+        'field_name' => 'fields',
+      ],
+      [
+        'name' => ts('Enabled'),
+        'field_name' => 'is_active',
+      ],
+      [
+        'name' => ts('Used For'),
+        'sort' => 'extends',
+        'field_name' => 'extends',
+        'direction' => CRM_Utils_Sort::DESCENDING,
+      ],
+      [
+        'name' => ts('Type'),
+        'field_name' => 'extends_entity_column_id',
+      ],
+      [
+        'name' => ts('Order'),
+        'field_name' => 'weight',
+      ],
+      [
+        'name' => ts('Style'),
+        'field_name' => 'style',
+      ],
+    ];
     self::$_columnHeaders
       = array_merge(
-        self::$_columnHeaders, array(
-          array('desc' => ts('Actions'), 'type' => 'actions'),
-        )
+        self::$_columnHeaders, [
+          ['desc' => ts('Actions'), 'type' => 'actions'],
+      ]
       );
     foreach (array_keys(self::$_columnHeaders) as $index) {
       // Add weight & space it out a bit to allow headers to be inserted.
@@ -478,17 +488,16 @@ class CRM_findcustomfields_Selector_Search extends CRM_Core_Selector_Base implem
    * @return string
    */
   public function whereClause(&$params) {
-    $clauses = array();
+    $clauses = [];
     
     $title = CRM_Utils_Array::value('title', $this->_queryParams);   
     $is_active = CRM_Utils_Array::value('is_active', $this->_queryParams);   
     $extends = CRM_Utils_Array::value('extends', $this->_queryParams);   
     $fields_name = CRM_Utils_Array::value('fields_name', $this->_queryParams);
     
-    
     if ($title) {
       $clauses[] = "title LIKE %1";
-      $params[1] = array('%' . $title . '%', 'String', FALSE);
+      $params[1] = ['%' . $title . '%', 'String', FALSE];
     }
     
     if ($is_active) {
@@ -509,7 +518,7 @@ class CRM_findcustomfields_Selector_Search extends CRM_Core_Selector_Base implem
     
     if ($fields_name) {
       $clauses[] = "label LIKE %2";
-      $params[2] = array('%' . $fields_name . '%', 'String', FALSE);
+      $params[2] = ['%' . $fields_name . '%', 'String', FALSE];
     }
     return !empty($clauses) ? implode(' AND ', $clauses) : '(1)';
   }
