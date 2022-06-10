@@ -22,9 +22,8 @@ function findcustomfields_civicrm_config(&$config) {
  *
  * @param $files array(string)
  */
-function findcustomfields_civicrm_xmlMenu(&$files) {
-  _findcustomfields_civix_civicrm_xmlMenu($files);
-}
+
+
 
 /**
  * Implementation of hook_civicrm_install
@@ -73,9 +72,8 @@ function findcustomfields_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
  * Generate a list of entities to create/deactivate/delete when this module
  * is installed, disabled, uninstalled.
  */
-function findcustomfields_civicrm_managed(&$entities) {
-  return _findcustomfields_civix_civicrm_managed($entities);
-}
+
+
 
 /**
  * Implementation of hook_civicrm_navigationMenu
@@ -94,4 +92,22 @@ function findcustomfields_civicrm_navigationMenu(&$navMenu) {
       findcustomfields_civicrm_navigationMenu($menu['child']);
     }
   }
+}
+
+/**
+ * Implements hook_civicrm_postInstall().
+ *
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_postInstall
+ */
+function findcustomfields_civicrm_postInstall() {
+  _findcustomfields_civix_civicrm_postInstall();
+}
+
+/**
+ * Implements hook_civicrm_entityTypes().
+ *
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_entityTypes
+ */
+function findcustomfields_civicrm_entityTypes(&$entityTypes) {
+  _findcustomfields_civix_civicrm_entityTypes($entityTypes);
 }
